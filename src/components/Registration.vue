@@ -6,6 +6,10 @@
           <el-input type="text" v-model="RegistrationForm.username" placeholder="2~16位（字母、数字）"></el-input>
         </el-form-item>
 
+        <el-form-item label="注册邮箱" prop="email">
+          <el-input type="text" v-model="RegistrationForm.email" placeholder="输出注册邮箱"></el-input>
+        </el-form-item>
+
         <el-form-item label="密码:" prop="password">
           <el-input type="password" v-model="RegistrationForm.password" placeholder="5~19位（首位为字母，数字、下划线）"></el-input>
         </el-form-item>
@@ -15,7 +19,7 @@
         </el-form-item>
 
         <el-form-item label="验证码:">
-          <el-input type="text" v-model="RegistrationForm.verifyCode"></el-input>
+          <el-input type="text" v-model="RegistrationForm.verifyCode" style="width: 150px"></el-input>
           <a v-on:click="changeCode" title="点击更换验证码">
             <el-image src="http://localhost:8080/verifyCode" id="captcha" style="vertical-align:middle;"></el-image>
           </a>
@@ -40,6 +44,7 @@ export default {
     return {
       RegistrationForm: {
         username: '',
+        email: '',
         password: '',
         repassword: '',
         verifyCode: ''
@@ -49,6 +54,9 @@ export default {
         username: [
           {required: true, message: '用户名不能为空', trigger: 'blur'},
           {pattern: /^[A-Za-z][A-Za-z0-9]{1,15}$/, message: '输入正确格式的用户名'}
+        ],
+        email: [
+          {required: true, trigger: 'blur', pattern: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/, message: '请输入正确的邮箱'}
         ],
         password: [
           {required: true, trigger: 'blur', pattern: /^[A-Za-z]\w{5,19}$/, message: '请输入正确的密码'}

@@ -1,6 +1,6 @@
 <template>
-  <div class="articles">
-    <el-card style="text-align: left;width: 990px;margin: 10px auto 0 auto" v-for="(article,index) in articles" :key="article.article_id">
+  <div class="articles" >
+    <el-card style="text-align: left;width: 990px;margin: 10px auto 0 auto" v-for="article in shouldShow" :key="article.article_id">
       <div class="author.avatar" style="float: left">
         <el-avatar>user</el-avatar>
       </div>
@@ -32,6 +32,10 @@
         <el-button round size="mini" v-on:click="collect(index)">收藏</el-button>
       </div>
     </el-card>
+
+    <div class="loadMore">
+      <el-button v-on:click="changePage" v-if="ifLoad">加载更多</el-button>
+    </div>
   </div>
 </template>
 
@@ -41,7 +45,16 @@ export default {
   name: 'ArticleBrief',
   data () {
     return {
-      articles: {}
+      articles: [],
+      showArticles: [],
+      currentPage: 1,
+      pageSize: 10,
+      ifLoad: true
+    }
+  },
+  computed: {
+    shouldShow: function () {
+      return this.articles.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
     }
   },
   mounted () {
@@ -82,6 +95,13 @@ export default {
             'Authorization': token
           }
         })
+      }
+    },
+    changePage () {
+      this.currentPage += 1
+      let total = this.currentPage * this.pageSize
+      if (total >= this.articles.length) {
+        this.ifLoad = false
       }
     }
   }

@@ -44,7 +44,7 @@ export default {
         ],
         password: [
           {required: true, trigger: 'blur', message: '密码不能为空'},
-          {pattern: /^\w{5,19}$/, message: '请输入正确格式的密码'}
+          {pattern: /^[A-Za-z]\w{5,19}$/, message: '请输入正确格式的密码'}
         ]
       }
     }

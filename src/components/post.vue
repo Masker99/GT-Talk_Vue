@@ -1,12 +1,12 @@
 <template>
   <div class="m-container">
     <div class="m-content">
-      <el-form ref="" :model="article" label-width="80px">
+      <el-form :model="article" label-width="80px">
         <el-form-item label="标题：">
           <el-input v-model="article.title"></el-input>
         </el-form-item>
 
-        <el-form-item label="正文：">
+        <el-form-item label="正文：" >
           <mavon-editor v-model="article.content"></mavon-editor>
         </el-form-item>
 
@@ -33,13 +33,14 @@ export default{
   },
   methods: {
     post () {
+      let token = localStorage.getItem('token')
       this.$axios
         .post('/article', {
           article_title: this.article.title,
           article_content: this.article.content
         }, {
           headers: {
-            'Authorization': localStorage.getItem('token')
+            'Authorization': token
           }
         })
         .then(response => {
