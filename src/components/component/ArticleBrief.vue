@@ -30,11 +30,12 @@
       <div class="article-button" style="padding-top: 20px;padding-left: 60px">
         <el-button round size="mini" v-on:click="like(index)">点赞</el-button>
         <el-button round size="mini" v-on:click="collect(index)">收藏</el-button>
+        <el-button round size="mini" v-on:click="display()">评论</el-button>
       </div>
     </el-card>
 
     <div class="loadMore">
-      <el-button v-on:click="changePage" v-if="ifLoad">加载更多</el-button>
+      <el-button v-on:click="changePage" v-if="ifLoad">下一页</el-button>
     </div>
   </div>
 </template>
@@ -96,6 +97,9 @@ export default {
           }
         })
       }
+    },
+    display () {
+
     },
     changePage () {
       this.currentPage += 1
